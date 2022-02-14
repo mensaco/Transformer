@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transformer</title>
-    <script src='https://cdn.tailwindcss.com'></script>
+    <!-- <script src='https://cdn.tailwindcss.com'></script> -->
+    <link href="/styles.css" rel="stylesheet" />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
 
 </head>
@@ -14,21 +15,24 @@
 <body>
     <div class="grid md:flex w-full">
         <div class="md:w-1/6 md:h-screen bg-gray-300 p-3 md:pr-1">
-            <textarea class="h-full w-full min-h-[10rem] bg-white/60" data-bind="value: input"></textarea>
+            <textarea class="h-full w-full min-h-[10rem] bg-white/60 p-1" data-bind="value: input"></textarea>
         </div>
         <div class="md:w-2/6 md:h-screen bg-gray-300 p-3 md:pl-2 md:pr-1">
-            <select data-bind="options:patterns, value: selectedPattern, click: patternChanged" class="w-full bg-white/60 mb-1">
+            <select data-bind="options:patterns, value: selectedPattern, click: patternChanged" class="w-full bg-white/60 mb-1 p-1">
             </select>
-            <textarea class="w-full min-h-[6rem] bg-white/60" data-bind="value: pattern"></textarea>
-            <div class="flex justify-between items-center">
-                <button class="px-3 py-1 mt-1 text-gray-600 bg-gray-400" data-bind="click: addPattern">add</button>
-                <button class="px-3 py-1 mt-1 text-gray-600 bg-gray-400" data-bind="click: updatePattern">update</button>
-                <button class="px-3 py-1 mt-1 text-gray-600 bg-gray-400" data-bind="click: removePattern">remove</button>
-
+            <textarea class="w-full min-h-[6rem] bg-white/60 p-1" data-bind="value: pattern"></textarea>
+            <div class="flex flex-wrap justify-start items-center my-3">
+                <button class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 " data-bind="click: addPattern">add</button>
+                <button class="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 " data-bind="click: updatePattern">update</button>
+                <button class="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 " data-bind="click: removePattern">remove</button>
+                <button class="text-white bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 ml-auto" data-bind="click: downloadPatterns">download</button>
+                <label class="text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 shadow-lg shadow-indigo-500/50 dark:shadow-lg dark:shadow-indigo-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2 mb-2 ">
+                    <input id="file" type="file" class="hidden" onchange="fileChanged(event)"/> upload
+                </label>
             </div>
         </div>
         <div class="md:w-3/6 md:h-screen bg-gray-300 p-3 md:pl-2">
-            <textarea class="h-full w-full min-h-[10rem] bg-white/60" data-bind="value: output"></textarea>
+            <textarea class="h-full w-full min-h-[10rem] bg-white/60 p-1" data-bind="value: output"></textarea>
         </div>
     </div>
 

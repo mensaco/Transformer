@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "npx tailwindcss -i tailwind.css -o styles.css",
+    "prod": "npx tailwindcss -i tailwind.css -o styles.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.7"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.0"
+  }
+}
