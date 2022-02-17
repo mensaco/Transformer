@@ -111,7 +111,7 @@ var ViewModel = function () {
                 ol.push(p);
             }
 
-            return ol.join('\n');
+            return ol.join('');
         }
         else {
             return '...';
