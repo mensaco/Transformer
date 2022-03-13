@@ -40,6 +40,9 @@ var ViewModel = function () {
         if (i) {
             self.input(i);
         }
+        else{
+            self.input('Emri string\nMbiemri string\nDatelindja DateOnly\nEmriIBabes string');
+        }
     }
     self.setInput = function () {
         localStorage.setItem("input", self.input());
@@ -48,7 +51,7 @@ var ViewModel = function () {
     self.getPatterns = function () {
         var json = localStorage.getItem("patterns");
         if (!json) {
-            json = "[]";
+            json = '["public {1} {0} { get; set; } = {2};\\n","private {1} _{0} = default;\\npublic {1} {0} \\n{\\n  get {\\n    return _{0};\\n  }\\n  set {\\n    _{0} = value;\\n  }\\n}  \\n","<input type=\\"text\\" id=\\"{0!camel}\\" name=\\"{0!Kebap}\\" class=\\"\\" />\\n"]';
         }
         self.patterns(JSON.parse(json));
     }
