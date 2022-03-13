@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
     <link href="/styles.css" rel="stylesheet" />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+        
 
 </head>
 
@@ -20,8 +21,30 @@
     <div class="max-w-screen-2xl 2xl:mx-auto">
         <div class="grid md:flex w-full">
             <div class="md:w-2/12 md:h-screen bg-gray-300 p-3 md:pr-1">
-                <textarea spellcheck="false" class="h-full w-full min-h-[10rem] bg-white/60 p-1"
+                <textarea spellcheck="false" class="h-[20rem] w-full min-h-[10rem] bg-white/60 p-1"
                     data-bind="textInput: input"></textarea>
+                <div class="border border-gray-500 mt-3 p-2">
+                    <div class="text-xl">Array of numbers</div>
+                    <hr>
+                    <div class="mb-3 mt-3">
+                        <label>array start:</label>
+                        <input type="number" data-bind="value: arrayBegin" class="p-2 w-full">
+                    </div>
+                    <div class="mb-3">
+                        <label>array count:</label>
+                        <input type="number" min="0" data-bind="value: arrayCount" class="p-2 w-full">
+                    </div>
+                    <div class="mb-3">
+                        <label>array step:</label>
+                        <input type="number" data-bind="value: arrayStep" class="p-2 w-full">
+                    </div>
+                    <div class="mb-3">
+                        <button
+                        class="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
+                        data-bind="click: insertArray">insert array</button>
+                    </div>
+                    
+                </div>
             </div>
             <div class="md:w-5/12 md:h-screen bg-gray-300 p-3 md:pl-2 md:pr-1">
                 <select data-bind="options:patterns, value: selectedPattern, click: patternChanged"

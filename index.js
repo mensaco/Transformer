@@ -4,6 +4,27 @@ var ViewModel = function () {
 
     self.patterns = ko.observableArray([]);
 
+    /// for array creation
+    self.arrayBegin = ko.observable(0);
+    self.arrayCount = ko.observable(10);
+    self.arrayStep = ko.observable(1);
+
+    self.insertArray = function () {
+        var begin = 1*self.arrayBegin();
+        var count = 1*self.arrayCount();
+        var step = 1*self.arrayStep();
+
+        var str = "";
+
+        for (let i = 0; i < count; i++) {
+            const e = begin + i*step;   
+            str += e.toString() + "\n";       
+        }
+        self.input(str);
+    }
+
+    /// /for array creation
+
 
     self.getInput = function () {
         var i = localStorage.getItem("input");
@@ -126,13 +147,13 @@ function getFileText(file) {
     //reader.readAsArrayBuffer(file);
     reader.readAsText(file, "UTF-8");
     reader.onload = function () {
-      localStorage.setItem("patterns",reader.result);
-      model.getPatterns();
+        localStorage.setItem("patterns", reader.result);
+        model.getPatterns();
     };
     reader.onerror = function (error) {
-      console.log('Error: ', error);
+        console.log('Error: ', error);
     };
- }
+}
 
 fileChanged = function (e) {
     var files = e.target.files;
