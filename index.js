@@ -10,26 +10,26 @@ var ViewModel = function () {
     self.arrayStep = ko.observable(1);
 
     self.insertArray = function () {
-        var begin = 1*self.arrayBegin();
-        var count = 1*self.arrayCount();
-        var step = 1*self.arrayStep();
+        var begin = 1 * self.arrayBegin();
+        var count = 1 * self.arrayCount();
+        var step = 1 * self.arrayStep();
 
         var str = "";
 
         for (let i = 0; i < count; i++) {
-            const e = begin + i*step;   
-            str += e.toString() + "\n";       
+            const e = begin + i * step;
+            str += e.toString() + "\n";
         }
         self.input(str);
     }
 
     /// /for array creation
 
-    self.copyToClipboard = function(){
+    self.copyToClipboard = function () {
         //data-bind="text: output"
         var o = document.querySelector("[data-bind='text: output'");
-        if(o){
-            if(navigator.clipboard.writeText){
+        if (o) {
+            if (navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(o.value);
             }
         }
@@ -135,8 +135,68 @@ var ViewModel = function () {
                 var p = pattern;
                 for (let j = 0; j < parts.length; j++) {
                     const part = parts[j];
+
                     var reg = new RegExp("\\{" + j + "\\}", "g");
-                    p = p.replace(reg, part);
+                    if (p.search(reg) > -1) {
+                        p = p.replace(reg, part);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!camel\\}", "g");
+                    if (p.search(reg) > -1) {
+                        var ptlc = part[0].toLowerCase() + part.substring(1);
+                        p = p.replace(reg, ptlc);
+                    }
+                    reg = new RegExp("\\{" + j + "!lower\\}", "g");
+                    if (p.search(reg) > -1) {
+                        var ptlc = part.toLowerCase();
+                        p = p.replace(reg, ptlc);
+                    }
+                    reg = new RegExp("\\{" + j + "!upper\\}", "g");
+                    if (p.search(reg) > -1) {
+                        var ptlc = part.toUpperCase();
+                        p = p.replace(reg, ptlc);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!Camel\\}", "g");
+                    if (p.search(reg) > -1) {
+                        var ptlc = part[0].toUpperCase() + part.substring(1);
+                        p = p.replace(reg, ptlc);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!pascal\\}", "g");
+                    if (p.search(reg) > -1) {
+                        var ptlc = part[0].toUpperCase() + part.substring(1);
+                        p = p.replace(reg, ptlc);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!snake\\}", "g");
+                    if (p.search(reg) > -1) {                        
+                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "_" + v[0].toLowerCase() + v.substring(1); });
+                        ptlc = ptlc.substring(1);
+                        p = p.replace(reg, ptlc);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!screamingsnake\\}", "g");
+                    if (p.search(reg) > -1) {                        
+                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "_" + v[0].toUpperCase() + v.substring(1); });
+                        ptlc = ptlc.substring(1).toUpperCase();
+                        p = p.replace(reg, ptlc);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!kebap\\}", "g");
+                    if (p.search(reg) > -1) {                        
+                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "-" + v[0].toLowerCase() + v.substring(1); });
+                        ptlc = ptlc.substring(1);
+                        p = p.replace(reg, ptlc);
+                    }
+
+                    reg = new RegExp("\\{" + j + "!Kebap\\}", "g");
+                    if (p.search(reg) > -1) {                        
+                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "-" + v[0].toLowerCase() + v.substring(1); });
+                        ptlc = ptlc.substring(1).toUpperCase();
+                        p = p.replace(reg, ptlc);
+                    }
+
                 }
                 ol.push(p);
             }
