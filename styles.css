@@ -424,8 +424,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 *, ::before, ::after {
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
   --tw-ring-offset-width: 0px;
   --tw-ring-offset-color: #fff;
@@ -466,10 +464,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 0.25rem;
 }
 
-.ml-auto {
-  margin-left: auto;
-}
-
 .flex {
   display: flex;
 }
@@ -486,8 +480,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 20rem;
 }
 
-.h-full {
-  height: 100%;
+.h-\[calc\(100\%-7rem\)\] {
+  height: calc(100% - 7rem);
 }
 
 .min-h-\[10rem\] {
@@ -520,15 +514,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .rounded-lg {
   border-radius: 0.5rem;
-}
-
-.border {
-  border-width: 1px;
-}
-
-.border-gray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 
 .bg-gray-300 {
@@ -649,6 +634,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.75rem;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -656,6 +646,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .font-medium {
   font-weight: 500;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .leading-5 {
@@ -791,13 +785,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
+@media (min-width: 640px) {
+  .sm\:ml-auto {
+    margin-left: auto;
+  }
+}
+
 @media (min-width: 768px) {
   .md\:flex {
     display: flex;
-  }
-
-  .md\:h-screen {
-    height: 100vh;
   }
 
   .md\:w-2\/12 {

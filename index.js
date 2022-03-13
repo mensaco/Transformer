@@ -25,6 +25,15 @@ var ViewModel = function () {
 
     /// /for array creation
 
+    self.copyToClipboard = function(){
+        //data-bind="text: output"
+        var o = document.querySelector("[data-bind='text: output'");
+        if(o){
+            if(navigator.clipboard.writeText){
+                navigator.clipboard.writeText(o.value);
+            }
+        }
+    }
 
     self.getInput = function () {
         var i = localStorage.getItem("input");
