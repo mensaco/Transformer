@@ -18,11 +18,11 @@
 </head>
 
 <body class="font-mono leading-5">
-    <div class="max-w-screen-2xl 2xl:mx-auto">
-        <div class="grid md:flex w-full">
+    <div class="max-w-screen-2xl 2xl:mx-auto mt-3">
+        <div class="grid md:flex w-full  border-3 border-gray-300" >
             <div class="md:w-2/12 bg-gray-300 p-3 md:pr-1">
                 <div class="text-xl">Input lines</div>
-                <div class="italic text-xs">use spaces as word separators</div>
+                <div class="italic text-sm text-fuchsia-900">use spaces as word separators</div>
                     <hr>
                 <textarea spellcheck="false" class="h-[20rem] w-full min-h-[10rem] bg-white/60 p-1"
                     data-bind="textInput: input"></textarea>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="mb-3">
                         <button
-                        class="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
+                        class="text-white bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
                         data-bind="click: insertArray">insert array</button>
                     </div>
                     
@@ -51,12 +51,13 @@
             </div>
             <div class="md:w-5/12 bg-gray-300 p-3 md:pl-2 md:pr-1">
                 <div class="text-xl">Saved patterns</div>
+                <div class="italic text-sm text-fuchsia-900">click to select</div>
                     <hr>
                 <select data-bind="options:patterns, value: selectedPattern, click: patternChanged"
                     class="w-full bg-white/60 mb-1 p-1" size="6">
                 </select>
                 <div class="text-xl">Current pattern</div>
-                <div class="italic text-xs">Use indexed placeholders {0}, {1},...to indicate which word from the input line to use. Use <b>{0!X}</b>, where <b>X &in; {camel,Camel,pascal snake,screamingsnake,kebap,Kebap}</b> for different formattings. </div>
+                <div class="italic text-sm text-fuchsia-900">Use indexed placeholders {0}, {1},...to indicate which word from the input line to use. Use <b>{0!X}</b>, where <b>X &in; {camel,Camel,pascal snake,screamingsnake,kebap,Kebap}</b> for different formattings. </div>
                     <hr>
                 <textarea spellcheck="false" class="w-full min-h-[6rem] bg-white/60 p-1"
                     data-bind="textInput: pattern"></textarea>
@@ -81,9 +82,9 @@
             </div>
             <div class="md:w-5/12 bg-gray-300 p-3 md:pl-2">
                 <div class="text-xl">Calculated output</div>
-                
+                <div class="italic text-sm text-fuchsia-900"> &nbsp;</div>
                     <hr>
-                <textarea spellcheck="false" class="h-[calc(100%-7rem)] w-full min-h-[10rem] bg-white/60 p-1 mb-2"
+                <textarea spellcheck="false" class="h-[calc(100%-8rem)] w-full min-h-[10rem] bg-white/60 p-1 mb-2"
                     data-bind="text: output"></textarea>
 
                     <!-- ko if: !!navigator.clipboard.writeText -->
