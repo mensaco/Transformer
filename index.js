@@ -23,6 +23,35 @@ var ViewModel = function () {
         self.input(str);
     }
 
+    self.buttonClass = function(tailwindColorName){
+        return `text-white bg-gradient-to-r from-${tailwindColorName}-500 via-${tailwindColorName}-600 to-${tailwindColorName}-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-${tailwindColorName}-300 dark:focus:ring-${tailwindColorName}-800 shadow-lg shadow-${tailwindColorName}-500/50 dark:shadow-lg dark:shadow-${tailwindColorName}-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center`;
+    }
+
+    self.resetInput = function(){
+        self.input('');
+        self.setInput();
+        self.getInput();
+    }
+
+    // create classes for buttons
+    self.buttonClasses = function(){
+        var d = [];
+        const colors = ["sky", "red", "green", "violet", "amber"];
+        for (let i = 0; i < colors.length; i++) {
+            const color = colors[i];
+            const coldef = self.buttonClass(color);
+            d.push(`
+            .btn-${color} {
+                @apply ${coldef};
+            }
+
+            `);
+        }
+
+        
+        console.log(d.join(' '));
+    }
+
     /// /for array creation
 
     self.copyToClipboard = function () {
@@ -34,6 +63,8 @@ var ViewModel = function () {
             }
         }
     }
+
+    
 
     self.getInput = function () {
         var i = localStorage.getItem("input");
@@ -54,6 +85,9 @@ var ViewModel = function () {
             json = '["public {1} {0} { get; set; } = {2};\\n","private {1} _{0} = default;\\npublic {1} {0} \\n{\\n  get {\\n    return _{0};\\n  }\\n  set {\\n    _{0} = value;\\n  }\\n}  \\n","<input type=\\"text\\" id=\\"{0!camel}\\" name=\\"{0!Kebap}\\" class=\\"\\" />\\n"]';
         }
         self.patterns(JSON.parse(json));
+        if(self.patterns().length > 0){
+            self.pattern(self.patterns()[0]);
+        }
     }
 
     self.setPatterns = function () {

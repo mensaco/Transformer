@@ -1,1 +1,1 @@
-npx tailwindcss -i tailwind.css -o styles.css
+powershell.exe .\RebuildTailwindCss.ps1
