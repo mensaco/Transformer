@@ -168,6 +168,8 @@ var ViewModel = function () {
 
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
+                if(line == "") continue;
+                
                 var parts = line.split(' ');
                 var p = pattern;
                 for (let j = 0; j < parts.length; j++) {
