@@ -75,9 +75,9 @@
                 <div class="text-sm italic text-gray-500">You can add new patterns, edit or remove the current one, upload current or download previously uploaded definitions.
                 </div>
 
-            <div class="flex justify-between gap-3">
+            <div class="md:flex md:justify-between">
 
-                <div>
+                <div class="flex justify-start gap-3 mt-3">
                     <button
                         class="btn-sky"
                         data-bind="click: addPattern">add</button>
@@ -90,7 +90,7 @@
                         class="btn-red"
                         data-bind="click: removePattern">remove</button>
                 </div>
-                <div>
+                <div class="flex justify-start gap-3 md:justify-end mt-3">
                     <button
                         class="btn-violet"
                         data-bind="click: downloadPatterns">download</button>
