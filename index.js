@@ -180,6 +180,12 @@ var ViewModel = function () {
                         p = p.replace(reg, part);
                     }
 
+                    reg = new RegExp("\\{!index\\}", "g");
+                    if (p.search(reg) > -1) {
+                        var ptlc = i;
+                        p = p.replace(reg, i);
+                    }
+
                     reg = new RegExp("\\{" + j + "!camel\\}", "g");
                     if (p.search(reg) > -1) {
                         var ptlc = part[0].toLowerCase() + part.substring(1);
