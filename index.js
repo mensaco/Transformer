@@ -2,6 +2,8 @@ var ViewModel = function () {
 
     var self = this;
 
+    self.separator = ko.observable(" ");
+
     self.patterns = ko.observableArray([]);
 
     /// for array creation
@@ -170,7 +172,7 @@ var ViewModel = function () {
                 const line = lines[i];
                 if(line == "") continue;
                 
-                var parts = line.split(' ');
+                var parts = line.split(self.separator());
                 var p = pattern;
                 for (let j = 0; j < parts.length; j++) {
                     const part = parts[j];
