@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformer - Template</title>
+
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="/transformer.png" type="image/png" />
+
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
+    <link href="/styles.css" rel="stylesheet" />
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+
+    <script src="/template.knockout.js" defer></script>
+</head>
+<body>
+    <div class="grid grid-cols-2 gap-3 text-lg">
+        <div>Input text</div>
+        <div>Output text</div>
+        <div><div class="h-[20rem] overflow-y-scroll border border-gray-300" contenteditable="true" data-bind="editableHTML: input"></div></div>
+        <div><div class="h-[20rem] overflow-y-scroll border border-gray-300" contenteditable="true" data-bind="editableHTML: output"></div></div>
+    </div>
+    <div>
+        <div data-bind="text: input"></div>
+        <div data-bind="text: output"></div>
+    </div>
+</body>
+</html>

@@ -72,7 +72,22 @@
 
             <textarea class="p-2 border border-gray-300 rounded-md w-full md:flex-1 h-40" spellcheck="false"
                 data-bind="textInput: pattern"></textarea>
-            
+                <div class="flex flex-between items-center gap-3">
+                    <div class="grid grid-cols-1 gap-2">
+                        <label>Text to replace</label>
+                        <input type="text" class="p-2 border border-gray-300 rounded-md" data-bind="value: $root.toreplace">
+                    </div>
+                    <div class="grid grid-cols-1 gap-2">
+                        <label>Replace with</label>
+                        <input type="text" class="p-2 border border-gray-300 rounded-md" data-bind="value: $root.replacer">
+                    </div>
+                    <div class="grid grid-cols-1 gap-2">
+                    <div> &nbsp;</div>
+                    <button type="button" data-bind="click: $root.replaceAll" class="btn-amber">replace all</button>
+                </div>
+                    
+                </div>
+                
                 <div class="text-sm italic text-gray-500">You can add new patterns, edit or remove the current one, upload current or download previously uploaded definitions.
                 </div>
 

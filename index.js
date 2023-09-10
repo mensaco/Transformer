@@ -4,6 +4,8 @@ var ViewModel = function () {
 
     self.separator = ko.observable(" ");
 
+   
+
     self.patterns = ko.observableArray([]);
 
     /// for array creation
@@ -81,6 +83,42 @@ var ViewModel = function () {
         localStorage.setItem("input", self.input());
     }
 
+
+    self.getToReplace = function () {
+        var i = localStorage.getItem("toreplace");
+        if (i) {
+            self.toreplace(i);
+        }
+        else{
+            self.toreplace('');
+        }       
+    }
+
+    self.getReplacer = function () {
+        var i = localStorage.getItem("replacer");
+        if (i) {
+            self.replacer(i);
+        }
+        else{
+            self.replacer('');
+        }
+    }
+
+
+
+
+    self.setToReplace = function () {
+        localStorage.setItem("toreplace", self.toreplace());
+    }
+
+    self.setReplacer = function () {
+        localStorage.setItem("replacer", self.replacer());
+    }
+
+
+
+
+
     self.getPatterns = function () {
         var json = localStorage.getItem("patterns");
         if (!json) {
@@ -91,6 +129,8 @@ var ViewModel = function () {
             self.pattern(self.patterns()[0]);
         }
     }
+
+
 
     self.setPatterns = function () {
         localStorage.setItem("patterns", JSON.stringify(self.patterns()));
@@ -154,9 +194,24 @@ var ViewModel = function () {
         self.pattern(self.selectedPattern());
     }
 
+    self.toreplace = ko.observable("");
+    self.replacer = ko.observable("");
+
+    self.replaceAll = function(){
+        if(self.toreplace() != "" && self.replacer() != ""){
+            self.pattern(self.pattern().replaceAll(this.toreplace(), this.replacer()));
+        }
+    }
+
     self.input = ko.observable('Id int\nName string\nDoB System.DateTime');
     self.input.subscribe(function () {
         self.setInput();
+    });
+    self.toreplace.subscribe(function(){
+        self.setToReplace();
+    });
+    self.replacer.subscribe(function(){
+        self.setReplacer();
     });
     self.pattern = ko.observable('');
     self.selectedPattern = ko.observable('');
@@ -281,3 +336,5 @@ var model = new ViewModel();
 ko.applyBindings(model);
 model.getInput();
 model.getPatterns();
+model.getToReplace();
+model.getReplacer();
