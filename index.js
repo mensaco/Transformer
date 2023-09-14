@@ -4,9 +4,24 @@ var ViewModel = function () {
 
     self.separator = ko.observable(" ");
 
-   
+
 
     self.patterns = ko.observableArray([]);
+    self.globRep = ko.observable('');
+    self.globalReplacements = function(){
+        var list = [];
+        var gr = self.globRep();
+        var grLines = gr.split('\n');
+        for(var i = 0; i < grLines.length; i++){
+            var parts = grLines[i].split(':');
+            if(parts.length == 2){
+                var lookFor = parts[0];
+                var replaceWith = parts[1];
+                list.push([lookFor, replaceWith]);
+            }
+        }
+        return list;
+    }
 
     /// for array creation
     self.arrayBegin = ko.observable(0);
@@ -27,18 +42,18 @@ var ViewModel = function () {
         self.input(str);
     }
 
-    self.buttonClass = function(tailwindColorName){
+    self.buttonClass = function (tailwindColorName) {
         return `text-white bg-gradient-to-r from-${tailwindColorName}-500 via-${tailwindColorName}-600 to-${tailwindColorName}-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-${tailwindColorName}-300 dark:focus:ring-${tailwindColorName}-800 shadow-lg shadow-${tailwindColorName}-500/50 dark:shadow-lg dark:shadow-${tailwindColorName}-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center`;
     }
 
-    self.resetInput = function(){
+    self.resetInput = function () {
         self.input('');
         self.setInput();
         self.getInput();
     }
 
     // create classes for buttons
-    self.buttonClasses = function(){
+    self.buttonClasses = function () {
         var d = [];
         const colors = ["sky", "red", "green", "violet", "amber"];
         for (let i = 0; i < colors.length; i++) {
@@ -52,7 +67,7 @@ var ViewModel = function () {
             `);
         }
 
-        
+
         console.log(d.join(' '));
     }
 
@@ -68,14 +83,14 @@ var ViewModel = function () {
         }
     }
 
-    
+
 
     self.getInput = function () {
         var i = localStorage.getItem("input");
         if (i) {
             self.input(i);
         }
-        else{
+        else {
             self.input('Emri string\nMbiemri string\nDatelindja DateOnly\nEmriIBabes string');
         }
     }
@@ -84,14 +99,28 @@ var ViewModel = function () {
     }
 
 
+    self.getGlobRep = function () {
+        var i = localStorage.getItem("globRep");
+        if (i) {
+            self.globRep(i);
+        }
+        else {
+            self.globRep('');
+        }
+    }
+    self.setGlobRep = function () {
+        localStorage.setItem("globRep", self.globRep());
+    }
+
+
     self.getToReplace = function () {
         var i = localStorage.getItem("toreplace");
         if (i) {
             self.toreplace(i);
         }
-        else{
+        else {
             self.toreplace('');
-        }       
+        }
     }
 
     self.getReplacer = function () {
@@ -99,7 +128,7 @@ var ViewModel = function () {
         if (i) {
             self.replacer(i);
         }
-        else{
+        else {
             self.replacer('');
         }
     }
@@ -125,7 +154,7 @@ var ViewModel = function () {
             json = '["public {1} {0} { get; set; } = {2};\\n","private {1} _{0} = default;\\npublic {1} {0} \\n{\\n  get {\\n    return _{0};\\n  }\\n  set {\\n    _{0} = value;\\n  }\\n}  \\n","<input type=\\"text\\" id=\\"{0!camel}\\" name=\\"{0!Kebap}\\" class=\\"\\" />\\n"]';
         }
         self.patterns(JSON.parse(json));
-        if(self.patterns().length > 0){
+        if (self.patterns().length > 0) {
             self.pattern(self.patterns()[0]);
         }
     }
@@ -197,8 +226,8 @@ var ViewModel = function () {
     self.toreplace = ko.observable("");
     self.replacer = ko.observable("");
 
-    self.replaceAll = function(){
-        if(self.toreplace() != "" && self.replacer() != ""){
+    self.replaceAll = function () {
+        if (self.toreplace() != "" && self.replacer() != "") {
             self.pattern(self.pattern().replaceAll(this.toreplace(), this.replacer()));
         }
     }
@@ -207,12 +236,20 @@ var ViewModel = function () {
     self.input.subscribe(function () {
         self.setInput();
     });
-    self.toreplace.subscribe(function(){
+    self.globRep.subscribe(function () {
+        self.setGlobRep();
+    });
+
+
+
+    self.toreplace.subscribe(function () {
         self.setToReplace();
     });
-    self.replacer.subscribe(function(){
+    self.replacer.subscribe(function () {
         self.setReplacer();
     });
+
+
     self.pattern = ko.observable('');
     self.selectedPattern = ko.observable('');
 
@@ -225,10 +262,12 @@ var ViewModel = function () {
 
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
-                if(line == "") continue;
-                
+                if (line == "") continue;
+
+                // 
                 var parts = line.split(self.separator());
                 var p = pattern;
+
                 for (let j = 0; j < parts.length; j++) {
                     const part = parts[j];
 
@@ -272,29 +311,29 @@ var ViewModel = function () {
                     }
 
                     reg = new RegExp("\\{" + j + "!snake\\}", "g");
-                    if (p.search(reg) > -1) {                        
-                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "_" + v[0].toLowerCase() + v.substring(1); });
+                    if (p.search(reg) > -1) {
+                        var ptlc = part.replace(/([A-Z])/g, function (v) { return "_" + v[0].toLowerCase() + v.substring(1); });
                         ptlc = ptlc.substring(1);
                         p = p.replace(reg, ptlc);
                     }
 
                     reg = new RegExp("\\{" + j + "!screamingsnake\\}", "g");
-                    if (p.search(reg) > -1) {                        
-                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "_" + v[0].toUpperCase() + v.substring(1); });
+                    if (p.search(reg) > -1) {
+                        var ptlc = part.replace(/([A-Z])/g, function (v) { return "_" + v[0].toUpperCase() + v.substring(1); });
                         ptlc = ptlc.substring(1).toUpperCase();
                         p = p.replace(reg, ptlc);
                     }
 
                     reg = new RegExp("\\{" + j + "!kebap\\}", "g");
-                    if (p.search(reg) > -1) {                        
-                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "-" + v[0].toLowerCase() + v.substring(1); });
+                    if (p.search(reg) > -1) {
+                        var ptlc = part.replace(/([A-Z])/g, function (v) { return "-" + v[0].toLowerCase() + v.substring(1); });
                         ptlc = ptlc.substring(1);
                         p = p.replace(reg, ptlc);
                     }
 
                     reg = new RegExp("\\{" + j + "!Kebap\\}", "g");
-                    if (p.search(reg) > -1) {                        
-                        var ptlc = part.replace(/([A-Z])/g, function(v) { return "-" + v[0].toLowerCase() + v.substring(1); });
+                    if (p.search(reg) > -1) {
+                        var ptlc = part.replace(/([A-Z])/g, function (v) { return "-" + v[0].toLowerCase() + v.substring(1); });
                         ptlc = ptlc.substring(1).toUpperCase();
                         p = p.replace(reg, ptlc);
                     }
@@ -303,7 +342,15 @@ var ViewModel = function () {
                 ol.push(p);
             }
 
-            return ol.join('');
+            var calculatedOutput =  ol.join('');
+            var GR = self.globalReplacements();
+            for (let i = 0; i < GR.length; i++) {
+                const gr = GR[i];
+                reg = new RegExp(gr[0], "g");
+                calculatedOutput = calculatedOutput.replace(reg, gr[1]);
+                
+            }
+            return calculatedOutput;
         }
         else {
             return '...';
@@ -335,6 +382,7 @@ fileChanged = function (e) {
 var model = new ViewModel();
 ko.applyBindings(model);
 model.getInput();
+model.getGlobRep();
 model.getPatterns();
 model.getToReplace();
 model.getReplacer();

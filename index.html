@@ -22,9 +22,9 @@
 
     <div class="grid md:flex md:flex-row gap-5 gap-3 w-full md:h-screen bg-zinc-200 text-shadow">
         <div class="md:w-96 px-2 py-2 flex flex-col gap-3 mt-0 md:mt-5">
-            <div class="text-xl">Input lines</div>
+            <div class="text-xl ml-3">Input lines</div>
             <div class="text-sm italic text-gray-500">use 
-                <input type="text" data-bind="value: separator" class="text-2xl p-2 border border-gray-300 text-right rounded-md w-[4rem]" /> as word separator</div>
+                <input type="text" data-bind="value: separator" class="text-2xl px-2 py-0 border border-gray-300 text-right rounded-md w-[4rem]" /> as word separator</div>
             <textarea class="p-2 border border-gray-300 rounded-md w-full h-40" spellcheck="false"
                 data-bind="textInput: input"></textarea>
                 <div>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="md:flex-1 p-2 flex flex-col gap-3 mt-0 md:mt-5">
-            <div class="text-xl">Saved patterns</div>
+            <div class="text-xl ml-3">Saved patterns</div>
             <div class="text-sm italic text-gray-500">click to select one of the patterns</div>
             <select class="p-2 border border-gray-300 rounded-md w-full"
                 data-bind="options:patterns, value: selectedPattern, click: patternChanged" size="6">
@@ -70,23 +70,9 @@
                 different formattings. <b>{!index}</b> shows the input line index.
             </div>
 
-            <textarea class="p-2 border border-gray-300 rounded-md w-full md:flex-1 h-40" spellcheck="false"
+            <textarea class="p-2 border border-gray-300 rounded-md w-full md:flex-1 h-20" spellcheck="false"
                 data-bind="textInput: pattern"></textarea>
-                <div class="flex flex-between items-center gap-3">
-                    <div class="grid grid-cols-1 gap-2">
-                        <label>Text to replace</label>
-                        <input type="text" class="p-2 border border-gray-300 rounded-md" data-bind="value: $root.toreplace">
-                    </div>
-                    <div class="grid grid-cols-1 gap-2">
-                        <label>Replace with</label>
-                        <input type="text" class="p-2 border border-gray-300 rounded-md" data-bind="value: $root.replacer">
-                    </div>
-                    <div class="grid grid-cols-1 gap-2">
-                    <div> &nbsp;</div>
-                    <button type="button" data-bind="click: $root.replaceAll" class="btn-amber">replace all</button>
-                </div>
-                    
-                </div>
+
                 
                 <div class="text-sm italic text-gray-500">You can add new patterns, edit or remove the current one, upload current or download previously uploaded definitions.
                 </div>
@@ -118,12 +104,36 @@
 
 
             </div>
+
+            <div class="text-xl mt-3">Replace in pattern</div>
+
+            <div class="flex flex-between items-center gap-3">
+                <div class="grid grid-cols-1 gap-2">
+                    <label>Text to replace</label>
+                    <input type="text" class="p-2 border border-gray-300 rounded-md" data-bind="value: $root.toreplace">
+                </div>
+                <div class="grid grid-cols-1 gap-2">
+                    <label>Replace with</label>
+                    <input type="text" class="p-2 border border-gray-300 rounded-md" data-bind="value: $root.replacer">
+                </div>
+                <div class="grid grid-cols-1 gap-2">
+                <div> &nbsp;</div>
+                <button type="button" data-bind="click: $root.replaceAll" class="btn-amber">replace all</button>
+            </div>
+                
+            </div>
         </div>
         <div class="md:flex-1 p-2 flex flex-col gap-3 mt-0 md:mt-5">
-            <div class="text-xl">Calculated output</div>
-            <div class="text-sm italic text-gray-100"> .</div>
+            
+            <div class="text-xl ml-3">Global replacements</div>
+            <div class="text-sm italic text-gray-500">the part before the colon must be regex excaped (e.g. string? => string\?).
+            </div>
+            <textarea data-bind="value: globRep" class="p-2 border border-gray-300 rounded-md w-full  md:flex-1 h-10" spellcheck="false"></textarea>
 
-            <textarea class="p-2 border border-gray-300 rounded-md w-full  md:flex-1 h-40" spellcheck="false"
+            <div class="text-xl ml-3">Calculated output</div>
+            <!-- <div class="text-sm italic text-gray-100"> .</div>  -->
+
+            <textarea class="p-2 border border-gray-300 rounded-md w-full  md:flex-1 h-20" spellcheck="false"
                 data-bind="text: output"></textarea>
 
             <!-- ko if: !!navigator.clipboard.writeText -->
